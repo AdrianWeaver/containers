@@ -30,6 +30,8 @@
 *.exe
 *.out
 *.app
+stl_executable
+ft_executable
 
 # Vim
 *tags
