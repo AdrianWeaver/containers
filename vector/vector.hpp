@@ -6,12 +6,15 @@
 /*   By: aweaver <aweaver@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 14:21:59 by aweaver           #+#    #+#             */
-/*   Updated: 2023/01/24 17:45:33 by aweaver          ###   ########.fr       */
+/*   Updated: 2023/02/08 18:14:05 by aweaver          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VECTOR_HPP
 # define VECTOR_HPP
+# include <iostream>
+# include <memory>
+# include <stdexcept>
 
 namespace ft
 {
@@ -61,9 +64,9 @@ namespace ft
 		//modifiers
 			template <class InputIterator>
 			void	assign (InputIterator first, InputIterator last);
-			void assign (size_type n, const value_type& val);
+			void	assign (size_type n, const value_type& val);
 			void	push_back(const value_type& val);
-			void pop_back();
+			void	pop_back();
 			iterator	insert(iterator position, const value_type& val);
 			void		insert(iterator position, size_type n, const value_type& val);
 			template <class InputIterator>
@@ -73,10 +76,6 @@ namespace ft
 			iterator erase(iterator first, iterator last);
 			void swap(vector& source);
 			void clear();
-			#include "vector_modifiers.hpp"
-			#include "vector_allocator.hpp"
-
-			void	wesh();
 
 			typedef T									value_type;
 			typedef Alloc								allocator_type;
@@ -90,6 +89,12 @@ namespace ft
 			typedef reverse_iterator<const_iterator>	const_reverse_iterator;
 			typedef ptrdiff_t							difference_type;
 			typedef size_t								size_type;
+		private:
+			size_type		_capacity;
+			size_type		_size;
+			value_type		*_storage;
+			allocator_type	_allocator
+
 	};
 }
 

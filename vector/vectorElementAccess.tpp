@@ -1,27 +1,33 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    vectorElementAccess.tpp                            :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: aweaver <aweaver@student.42.fr>            +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/01/24 17:49:43 by aweaver           #+#    #+#              #
-#    Updated: 2023/01/24 17:49:45 by aweaver          ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+#include "vector.hpp"
 
 //Operator[]
-	reference		operator[] (size_type n);
-	const_reference	operator[] (size_type n) const;
+	template < class T, class Alloc >
+	ft::vector<T, Alloc>::reference		ft::vector<class T, class Alloc>::operator[] (size_type n)
+	{
+	}
+	template < class T, class Alloc >
+	ft::vector<T, Alloc>::const_reference	ft::vector<T, Alloc>::operator[] (size_type n) const
+	{
+	}
 
 //at
-	reference at (size_type n);
-	const_reference at	(size_type n) const;
+	template < class T, class Alloc >
+	ft::vector<T, Alloc>::reference ft::vector<T, Alloc>::at(size_type n)
+	{
+	}
+	template < class T, class Alloc >
+	ft::vector<T, Alloc>::const_reference ft::vector<T, Alloc>::at(size_type n) const
+	{
+	}
 
 //front
-	reference	front();
-	const_reference	front() const;
+	template < class T, class Alloc >
+	ft::vector<T, Alloc>::reference	ft::vector<T, Alloc>::front();
+	template < class T, class Alloc >
+	ft::vector<T, Alloc>::const_reference	ft::vector<T, Alloc>::front() const;
 
 //back
-	reference		back();
-	const_reference	back();
+	template < class T, class Alloc >
+	ft::vector<T, Alloc>::reference		ft::vector<T, Alloc>::back();
+	template < class T, class Alloc >
+	ft::vector<T, Alloc>::const_reference	ft::vector<T, Alloc>::back();
