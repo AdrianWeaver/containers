@@ -6,9 +6,10 @@ CXX = c++
 CXXFLAGS	= -Wall -Wextra -Werror -std=c++98
 CPPFLAGS	= -MMD
 
-SRCS		=	main.cpp
+SRCS		=	main_stack.cpp
 
-INC			=	-I	vector
+INC			=	-I	vector\
+				-I	stack
 
 OBJS = $(SRCS:.cpp=.o)
 DEPS = $(OBJS:.o=.d)
@@ -34,8 +35,9 @@ re: fclean
 	make all
 
 test:	$(NAME) $(NAME_FT)
-		./$(NAME) 0
-		./$(NAME_FT) 0
+		./$(NAME) | tee ft_output
+		./$(NAME_FT) 0 | tee stl_output
+		@diff ft_output stl_output
 
 vtest:	$(NAME) $(NAME_FT)
 		valgrind --leak-check=full ./$(NAME) 0
