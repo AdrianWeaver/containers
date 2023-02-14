@@ -6,7 +6,7 @@ CXX = c++
 CXXFLAGS	= -Wall -Wextra -Werror -std=c++98
 CPPFLAGS	= -MMD
 
-SRCS		=	main_stack.cpp
+SRCS		=	main_vector.cpp
 
 INC			=	-I	vector\
 				-I	stack
@@ -21,7 +21,7 @@ $(NAME): $(OBJS)
 	$(CXX) $(CXXFLAGS) $(OBJS) -o $(@) -D CUSTOM_SCOPE=0
 
 $(NAME_FT): $(OBJS)
-	$(CXX) $(CXXFLAGS) $(OBJS) -o $(@) $(INC)
+	$(CXX) $(CXXFLAGS) $(OBJS) -o $(@) $(INC) -D CUSTOM_SCOPE=1
 
 clean:
 	rm -f $(OBJS)
