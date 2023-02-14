@@ -16,7 +16,7 @@
 
 #include <stdlib.h>
 
-#define TEST_ASSIGN 0
+#define TEST_ASSIGN 1
 #define TEST_AT 0
 #define TEST_BACK 0
 #define TEST_BEGIN 0
@@ -41,7 +41,7 @@
 #define TEST_SWAP 0
 
 #if TEST_OPERATOR_EQUAL
-void print(auto const comment, auto const& container)
+void print(std::string const comment, auto const& container)
 {
 	auto size = std::size(container);
 	std::cout << comment << "{ ";
@@ -128,121 +128,122 @@ int main()
 {
 #if TEST_ASSIGN
 	{
-		 std::vector<char> characters;
+		std::vector<char> characters;
 
-	auto print_vector = [&]()
-	{
-		for (char c : characters)
+		for (unsigned int c = 0; c < characters.size(); c++)
 			std::cout << c << ' ';
 		std::cout << '\n';
-	};
 
-	characters.assign(5, 'a');
-	print_vector();
+		characters.assign(5, 'a');
+		for (unsigned int c = 0; c < characters.size(); c++)
+			std::cout << c << ' ';
+		std::cout << '\n';
 
-	const std::string extra(6, 'b');
-	characters.assign(extra.begin(), extra.end());
-	print_vector();
-
-	characters.assign({'C', '+', '+', '1', '1'});
-	print_vector();
+		const std::string extra(6, 'b');
+		characters.assign(extra.begin(), extra.end());
+		for (unsigned int c = 0; c < characters.size(); c++)
+			std::cout << c << ' ';
+		std::cout << '\n';
 	}
 #endif
 #if TEST_AT
 	{
-		 std::vector<int> data = { 1, 2, 4, 5, 5, 6 };
+		std::vector<int> data = { 1, 2, 4, 5, 5, 6 };
 
-	// Set element 1
-	data.at(1) = 88;
+		// Set element 1
+		data.at(1) = 88;
 
-	// Read element 2
-	std::cout << "Element at index 2 has value " << data.at(2) << '\n';
+		// Read element 2
+		std::cout << "Element at index 2 has value " << data.at(2) << '\n';
 
-	std::cout << "data size = " << data.size() << '\n';
+		std::cout << "data size = " << data.size() << '\n';
 
-	try {
-		// Set element 6
-		data.at(6) = 666;
-	} catch (std::out_of_range const& exc) {
-		std::cout << exc.what() << '\n';
-	}
+		try {
+			// Set element 6
+			data.at(6) = 666;
+		} catch (std::out_of_range const& exc) {
+			std::cout << exc.what() << '\n';
+		}
 
-	// Print final values
-	std::cout << "data:";
-	for (int elem : data)
-		std::cout << " " << elem;
-	std::cout << '\n';
+		// Print final values
+		std::cout << "data:";
+		for (int elem : data)
+			std::cout << " " << elem;
+		std::cout << '\n';
 	}
 #endif
 #if TEST_BACK
 	{
-		 std::vector<char> letters {'a', 'b', 'c', 'd', 'e', 'f'};
+		std::vector<char> letters {'a', 'b', 'c', 'd', 'e', 'f'};
 
-	if (!letters.empty()) {
-		std::cout << "The last character is '" << letters.back() << "'.\n";
-	}
+		if (!letters.empty()) {
+			std::cout << "The last character is '" << letters.back() << "'.\n";
+		}
 	}
 #endif
 #if TEST_BEGIN
 	{
-			std::vector<int> nums {1, 2, 4, 8, 16};
-	std::vector<std::string> fruits {"orange", "apple", "raspberry"};
-	std::vector<char> empty;
- 
-	// Print vector.
-	std::for_each(nums.begin(), nums.end(), [](const int n) { std::cout << n << ' '; });
-	std::cout << '\n';
- 
-	// Sums all integers in the vector nums (if any), printing only the result.
-	std::cout << "Sum of nums: "
-			  << std::accumulate(nums.begin(), nums.end(), 0) << '\n';
- 
-	// Prints the first fruit in the vector fruits, checking if there is any.
-	if (!fruits.empty())
-		std::cout << "First fruit: " << *fruits.begin() << '\n';
- 
-	if (empty.begin() == empty.end())
-		std::cout << "vector 'empty' is indeed empty.\n";
+		std::vector<int> nums {1, 2, 4, 8, 16};
+		std::vector<std::string> fruits {"orange", "apple", "raspberry"};
+		std::vector<char> empty;
+
+		// Print vector.
+		std::for_each(nums.begin(), nums.end(), [](const int n) { std::cout << n << ' '; });
+		std::cout << '\n';
+
+		// Sums all integers in the vector nums (if any), printing only the result.
+		std::cout << "Sum of nums: "
+			<< std::accumulate(nums.begin(), nums.end(), 0) << '\n';
+
+		// Prints the first fruit in the vector fruits, checking if there is any.
+		if (!fruits.empty())
+			std::cout << "First fruit: " << *fruits.begin() << '\n';
+
+		if (empty.begin() == empty.end())
+			std::cout << "vector 'empty' is indeed empty.\n";
 	}
 #endif
 #if TEST_CAPACITY
 	{
-			int sz = 100;
-	std::vector<int> v;
+		int sz = 100;
+		std::vector<int> v;
 
-	auto cap = v.capacity();
-	std::cout << "Initial size: " << v.size() << ", capacity: " << cap << '\n';
+		auto cap = v.capacity();
+		std::cout << "Initial size: " << v.size() << ", capacity: " << cap << '\n';
 
-	std::cout << "\nDemonstrate the capacity's growth policy."
-				 "\nSize:  Capacity:  Ratio:\n" << std::left;
-	while (sz-- > 0) {
-		v.push_back(sz);
-		if (cap != v.capacity()) {
-			std::cout << std::setw( 7) << v.size()
-					  << std::setw(11) << v.capacity()
-					  << std::setw(10) << v.capacity() / static_cast<float>(cap) << '\n';
-			cap = v.capacity();
+		std::cout << "\nDemonstrate the capacity's growth policy."
+			"\nSize:  Capacity:  Ratio:\n" << std::left;
+		while (sz-- > 0) {
+			v.push_back(sz);
+			if (cap != v.capacity()) {
+				std::cout << std::setw( 7) << v.size()
+					<< std::setw(11) << v.capacity()
+					<< std::setw(10) << v.capacity() / static_cast<float>(cap) << '\n';
+				cap = v.capacity();
+			}
 		}
-	}
 
-	std::cout << "\nFinal size: " << v.size() << ", capacity: " << v.capacity() << '\n';
+		std::cout << "\nFinal size: " << v.size() << ", capacity: " << v.capacity() << '\n';
 	}
 #endif
 #if TEST_CLEAR
 	{
-		std::vector<int> container{1, 2, 3};
+		std::vector<int> container;
+		for (unsigned int i = 0; i < 3; i++)
+			container.push_back(42);
 
-		auto print = [](const int& n) { std::cout << " " << n; };
 
 		std::cout << "Before clear:";
-		std::for_each(container.begin(), container.end(), print);
+		for (unsigned int i = 0; i < container.size(); i++)
+			std::cout << container[i] << std::endl;
 		std::cout << "\nSize=" << container.size() << ", Capacity=" << container.capacity() << '\n';
 
 		std::cout << "Clear\n";
 		container.clear();
 
 		std::cout << "After clear:";
-		std::for_each(container.begin(), container.end(), print);
+		for (unsigned int i = 0; i < container.size(); i++)
+			std::cout << container[i] << std::endl;
 		std::cout << "\nSize=" << container.size() << ", Capacity=" << container.capacity() << '\n';
 	}
 #endif
@@ -495,24 +496,31 @@ int main()
 #endif
 #if TEST_RESIZE
 	{
-		std::vector<int> c = {1, 2, 3};
+		std::vector<int> c;
+		c.push_back(1);
+		c.push_back(2);
+		c.push_back(3);
 		std::cout << "The vector holds: ";
-		for (const auto& el: c) std::cout << el << ' ';
+		for (std::vector<int>::iterator el = c.begin(); el != c.end(); el++)
+			std::cout << *el << ' ';
 		std::cout << '\n';
 
 		c.resize(5);
 		std::cout << "After resize up to 5: ";
-		for (const auto& el: c) std::cout << el << ' ';
+		for (std::vector<int>::iterator el = c.begin(); el != c.end(); el++)
+			std::cout << *el << ' ';
 		std::cout << '\n';
 
 		c.resize(2);
 		std::cout << "After resize down to 2: ";
-		for (const auto& el: c) std::cout << el << ' ';
+		for (std::vector<int>::iterator el = c.begin(); el != c.end(); el++)
+			std::cout << *el << ' ';
 		std::cout << '\n';
 
 		c.resize(6, 4);
 		std::cout << "After resize up to 6 (initializer = 4): ";
-		for (const auto& el: c) std::cout << el << ' ';
+		for (std::vector<int>::iterator el = c.begin(); el != c.end(); el++)
+			std::cout << *el << ' ';
 		std::cout << '\n';
 	}
 #endif
