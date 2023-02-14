@@ -37,3 +37,7 @@ ft_executable
 *tags
 *.swp
 *.swo
+
+# Test
+stl_output
+ft_output
